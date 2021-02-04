@@ -1,0 +1,50 @@
+#1)
+select standing,avg(age) from student group by standing;
+#2)
+select standing,avg(age) from student where standing != 'SR' group by standing ;
+#3)
+select fname,count(fname) from class,faculty where class.fid = faculty.fid group by fname ;
+
+#4) 
+select sname from student,enrolled where student.snum = enrolled.snum and cname = 'Database Systems' 
+and  cname not in (select snum  from enrolled where cname = 'Operating System Design');
+
+#5)
+select cname,avg(age) from student,enrolled where student.snum = enrolled.snum group by cname having count(cname) >=2 ;
+#6)
+select faculty.fid from faculty,class where faculty.fid = class.fid group by faculty.fid having count(faculty.fid) > 1;
+#7)
+select snum from enrolled group by snum having count(snum) > 1;
+#8)
+select sname,snum,major,standing,age from student order by age desc;
+#9) 
+select sname,snum from student where major in ('Electrical Engineering','Mechanical Engineering', 'Computer Engineering', 'Civil Engineering');
+#10) Count the number of students in each branch of Engineering.
+select major , count(major) as studentCount from student group by major;
+
+#11)
+select faculty.fid,faculty.fname
+ from faculty,class
+ where faculty.fid=class.fid and (class.name='Introduction to Math' or class.name='Communication Networks');
+
+#12) Find the names and ids of instructors who are teaching a course and belonging to department id 68.
+select fid,fname from faculty where deptid != 68 and fid in (select distinct fid from class);
+
+#13)Find the names and ids of students who have not enrolled for any course.
+select sname,snum from student where snum not in (select snum from enrolled);
+
+#14) Find the ages of all students whose last name begins with W and has at least 3 characters
+select age,sname from student where sname like '% W__%';
+
+#15)Find the age of the youngest student who is eligible to vote (that is, at least 18 years old) for each level (standing)
+#   with at least two such students.
+
+
+select standing,min(age) as youngestAge from student where age >= 18 group by standing having count(standing)>=2 ;
+
+
+
+
+
+
+
